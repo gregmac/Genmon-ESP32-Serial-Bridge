@@ -18,6 +18,7 @@ I specifically went with the ESP32-WROOM-32U devkit board -- which has an extern
 * ESP32-WROOM-32U devkit board
 * External screw-on antenna
 * 8-pin ATX EPS (CPU power) extension cable -- only need male end
+* MAX3232 RS232<>TTL converter module
 * Enclosure
 
 ### Optional
