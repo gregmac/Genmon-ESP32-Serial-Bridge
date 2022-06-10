@@ -8,3 +8,22 @@ Normally Genmon is installed on a Pi that's connected to the generator, but I de
 2. The Pi is supposedly suspectiple to electromagnetic interference from the generator operating; I assume the ESP32 being much simpler is less susceptible 
 3. The ESP32 uses much less power (can run from the 5V the generator's AUX port provides)
 4. The ESP32 is significantly smaller and along with all the above, is much easier to mount and connect
+
+I specifically went with the ESP32-WROOM-32U devkit board -- which has an external antenna -- to get a decent signal from the all-metal generator enclosure.
+
+> I did initially prototype using a regular ESP32 with a PCB antenna; it had a Wifi signal around -85 dBm and around 25% packet loss. Switching to an external antenna raised the signal to -62 dBm and 0% packet loss.
+
+## Hardware
+
+* ESP32-WROOM-32U devkit board
+* External screw-on antenna
+* 8-pin ATX EPS (CPU power) extension cable -- only need male end
+* Enclosure
+
+### Optional
+
+Temperature sensors:
+
+* 2x DS18B20 one-wire temperature sensor
+* 1x 4.7k resistor
+
