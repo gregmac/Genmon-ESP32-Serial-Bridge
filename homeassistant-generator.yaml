@@ -1,0 +1,226 @@
+################################################################
+## Package / Generator
+################################################################
+#
+#  Version 0.5-greg
+#
+#  Package for Home Assistant. See https://www.home-assistant.io/docs/configuration/packages/
+#
+#  This interfaces Home Assistant to a Generac generator montiored by
+#  https://github.com/jgyates/genmon
+#
+#  Based on version 0.5 of the configuration by Louis Mamakos <louie@transsys.com> at
+#  https://community.home-assistant.io/t/monitor-your-generac-generator-with-home-assistant/62701
+#
+#  Modifications:
+#  - Minor changes for being ESP32-based
+#  - Use JSON numerics (to avoid string parsing)
+#  - Add icons, device_class, etc
+#
+#  Required Genmon MQTT settings:
+#  - Blacklist Filter: Run Time,Monitor Time,Generator Time,Communication Stats,Platform Stats
+#  - JSON Numerics: ON
+#  - Root topic: (blank)
+#
+#  Notes:
+#  - unique_id values in this file are not signficant (or
+#    even required at all).  They exist so that the entities show up
+#    within the Home Assistant configuration GUI for customization. 
+#  - MQTT topics need to match what is configured in genmon
+
+homeassistant:
+  customize:
+    sensor.generator_battery_voltage:
+      icon: mdi:car-battery
+      device_class: voltage
+mqtt:
+  sensor:
+    - unique_id: "fd8f8c07-7d6f-4aea-92b5-16b7d8acc66b"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      state_topic: 'generator/Outage/Status'
+      name: Generator Outage Status
+      icon: mdi:alarm-light-outline
+  
+    - unique_id: "f565fed6-8a19-49d4-8066-4015c5ca91b1"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      state_topic: 'generator/Outage/Utility Voltage/value'   # if JSON numerics
+      name: Generator Utility Voltage
+      #icon: mdi:sine-wave
+      device_class: voltage
+      unit_of_measurement: "VAC"
+  
+    # status related sensors
+    - unique_id: "713eb4b9-feec-4425-8c83-84a9f486aae7"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Battery Voltage Raw
+      icon: mdi:car-battery
+      device_class: voltage
+      state_topic: 'generator/Status/Engine/Battery Voltage/value'   # if JSON numerics
+      unit_of_measurement: "V"
+  
+    - platform: filter
+      unique_id: "209515cd-37c2-45a3-818e-6056f8fcb5e5"
+      name: Generator Battery Voltage
+      entity_id: sensor.generator_generator_battery_voltage_raw
+      filters:
+        - filter: time_throttle
+          window_size: "00:15"
+  
+    - unique_id: "83fd4b02-1b5b-4f0c-8a90-fc7cd102a190"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Switch State
+      icon: mdi:electric-switch
+      state_topic: 'generator/Status/Engine/Switch State'
+  
+    - unique_id: "63f6e276-be1d-44ad-8a8a-fe4af30bcff8"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Engine State
+      state_topic: 'generator/Status/Engine/Engine State'
+  
+    - unique_id: "f3a8aedd-206b-4e5f-baa9-677496ee8d3c"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator RPM
+      icon: mdi:gauge
+      unit_of_measurement: "RPM"
+      state_topic: 'generator/Status/Engine/RPM/value'    # if JSON numerics
+      
+    - unique_id: "cbdc9c28-5748-4aef-91bc-5b5ec95ed545"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Frequency
+      device_class: frequency
+      unit_of_measurement: "HZ"
+      state_topic: 'generator/Status/Engine/Frequency/value'   # if JSON numerics
+      
+    - unique_id: "f5f462db-e16d-4596-9bd3-232b70fa5038"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Output Voltage
+      device_class: voltage
+      unit_of_measurement: "VAC"
+      state_topic: 'generator/Status/Engine/Output Voltage/value'   # if JSON numerics
+      
+    # current measurement is garbage on 22KW product, apparently
+    - unique_id: "10e1def6-35fd-4922-932a-90f25abb7f29"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Output Current
+      device_class: current
+      unit_of_measurement: "A"
+      icon: mdi:sine-wave
+      state_topic: 'generator/Status/Engine/Output Current/value'   # if JSON numerics
+      
+    # current measurement is garbage on 22KW product, apparently, so this value may
+    # also be suspect on that model
+    - unique_id: "914a4e97-54a0-41e7-bbeb-a256134e5e35"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Output Power
+      device_class: power
+      unit_of_measurement: "W"
+      state_topic: 'generator/Status/Engine/Output Power (Single Phase)/value'   # if JSON numerics
+      # this is normalized to watts from kilowatts
+      value_template: '{{ value | float * 1000 | round(0) }}'
+  
+    - unique_id: "8cb64471-9123-48f6-b9be-15c01595981e"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Last Alarm Log
+      state_topic: 'generator/Status/Last Log Entries/Logs/Alarm Log'
+          
+    - unique_id: "bce3182a-a525-47dc-937c-8be4e5afc619"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Last Service Log
+      state_topic: 'generator/Status/Last Log Entries/Logs/Service Log'
+  
+    - unique_id: "faa2f487-fc30-4e9c-8733-5b27270b3e17"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Last Run Log
+      state_topic: 'generator/Status/Last Log Entries/Logs/Run Log'
+  
+      # maint related sensors
+    - unique_id: "bf7cbe92-2b1e-48ca-addd-df963697626c"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Capacity
+      device_class: power
+      state_topic: 'generator/Maintenance/Rated kW'
+      # normalize to watts
+      value_template: '{{ value | regex_replace(" *[Kk]W", "") | float * 1000 | round(0) }}'
+      unit_of_measurement: 'W'
+  
+  
+    - unique_id: "825657b6-c67a-427a-bee9-7b6ea2182628"
+      expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
+      name: Generator Exercise Time
+      icon: mdi:fan-clock
+      state_topic: 'generator/Maintenance/Exercise/Exercise Time'
+      # might be nice to maybe somehow normalize this, but not sure into what date/time representation
+      # value is something like:  "Weekly Sunday 17:35 Quiet Mode On"
+      
+    - unique_id: "41c981db-5979-4ee6-b9fb-d1ca44f83b3f"
+      expire_after: 300
+      name: Generator Total Run Time
+      device_class: duration
+      unit_of_measurement: hours
+      state_topic: 'generator/Maintenance/Service/Total Run Hours/value'  # if JSON numerics
+      value_template: '{{ value | default(0) | float }}'
+  
+    - unique_id: "927b24b7-772d-434a-8fa1-4f1c5549c90d"
+      expire_after: 300
+      name: Generator Hardware Version
+      state_topic: 'generator/Maintenance/Service/Hardware Version'
+  
+    - unique_id: "4cf182de-c37b-48c9-8727-75e1f5053d0d"
+      expire_after: 300
+      name: Generator Firmware Version
+      state_topic: 'generator/Maintenance/Service/Firmware Version'
+  
+    - unique_id: "8f9caada-2e90-4cb9-9571-597a27b97a9e"
+      expire_after: 300
+      name: Generator Service A Due
+      state_topic: 'generator/Maintenance/Service/Service A Due'
+      # value is something like "191 hrs or 04/12/2024"
+  
+    - unique_id: "6ec00786-1eaf-4a58-b97a-57052cc0641c"
+      expire_after: 300
+      name: Generator Service B Due
+      state_topic: 'generator/Maintenance/Service/Service B Due'
+      # value is something like "191 hrs or 04/12/2024"
+  
+    - unique_id: "7f37ec3c-e1c5-4e10-ba9d-f8f15d27a019"
+      expire_after: 300
+      name: Generator Battery Check Due
+      state_topic: 'generator/Maintenance/Service/Battery Check Due'
+      # value is something like "4/12/2024"
+  
+  
+    # genmon monitor related sensors
+    - unique_id: "9bc1d83a-34bc-4a1e-a643-3c0eb62501dd"
+      expire_after: 300
+      name: Genmon Version
+      state_topic: 'generator/Monitor/Generator Monitor Stats/Generator Monitor Version'
+
+#
+#  probably the most useful sensor - are we in a power outage condition or not?
+#
+  binary_sensor:
+    - unique_id: "468414df-32b1-4127-8636-4202a11b880c"
+      name: Generator Power Outage
+      state_topic: 'generator/Outage/System In Outage'
+      payload_on: 'Yes'
+      payload_off: 'No'
+
+############################################################################3
+#
+# Fun facts (For 22kw generac model)
+#   
+#  Per specification, fuel consumption for propane is
+#        2.56 gal/hr at 50% load (11KW)
+#        3.87 gal/hr at 100% load (22KW)
+#
+#  Per genmon code, the 3 term polynomial to compute this is: [0, 2.74, 1.16]
+# 
+#        gal/hr = (T0 * pctLoad^2) + (T1 * pctLoad) + T3
+#        gal/hr =                    2.74 * pctLoad + 1.16
+#
+#  This is a pretty good fit to the spec sheet -
+#       50% = 2.53 gal/hr  (vs 2.56 spec)
+#      100% = 3.90 gal/hr  (vs 3.87 spec)
+#
+#  Home assistant could compute a gallons/hour rate in a template sensor if this seems useful.
+#

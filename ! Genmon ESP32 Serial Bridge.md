@@ -70,9 +70,32 @@ See `esphome.yaml` for the code.
 
 ## Genmon
 
-### Install on Alpine linux
+### Install on Alpine Linux
 
+I run genmon in an LXC container under [Proxmox](https://www.proxmox.com/), on Alpine 3.11
+
+1. `apk add bash python3 sudo make gcc build-base libressl-dev python3-dev rust py3-pip`
+2. `pip install -U pip` (needs v22+ for the python `cryptography` package)
+3. `cd /opt && git clone https://github.com/jgyates/genmon.git && cd /opt/genmon`
+4. `./genmonmaint.sh -i`
+ 
 ### Configuration
 
+Start genmon, and in the UI, set:
+
+* **Serial Server TCP/IP Address** = IP of the ESP32
+* **Serial Server TCP/IP port** = `6638` (or whatever port the ESP32 stream server uses)
+
+_This can also be done via `/etc/genmon/genmon.conf`_
+
+Addons:
+
+* Enable **MQTT** and configure server address
+* **Blacklist Filter** = `Run Time,Monitor Time,Generator Time,Platform Stats,Communication Stats`
+* **Flush Interval** = `60`
+* **JSON for Numerics** = on
+
 ## Home Assistant
+
+Add `homeassistant-generator.yaml` to `packages` folder and restart Home Assistant
 
