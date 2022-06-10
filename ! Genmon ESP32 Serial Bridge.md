@@ -30,6 +30,8 @@ Temperature sensors:
 
 ### Wiring
 
+I did all the wiring inline, which was OK before I added the one-wire temperature sensors and ended up changing the ESP32. If I did it over again I'd do the connections on a small perfboard with sockets to plug in the ESP32.
+
 EPS connector:
 
 * Pin 1: +5V ↔ ESP32 VCC in
@@ -54,6 +56,8 @@ One-wire temperature:
   * VCC ↔ ESP32 3V3
   * Data ↔ ESP32 GPIO4
 * 4.7k resistor between VCC and Data (only one)
+
+All grounds need to be tied together.
 
 ## ESP32 Software
 
