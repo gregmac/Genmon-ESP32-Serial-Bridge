@@ -28,3 +28,51 @@ Temperature sensors:
 * 2x DS18B20 one-wire temperature sensor
 * 1x 4.7k resistor
 
+### Wiring
+
+EPS connector:
+
+* Pin 1: +5V ↔ ESP32 VCC in
+* Pin 2: Ground
+* Pin 7: RS232 TX
+* Pin 8: RS232 RX
+
+MAX3232:
+
+* RS232 Out ↔ EPS Pin 7
+* RS232 In ↔ EPS Pin 8
+* TTL In ↔ ESP32 TX (GPIO1)
+* TTL Out ↔ ESP32 GPIO22
+* Power + ↔ ESP32 3V3
+* Power - ↔ Ground
+
+> Note: I used GPIO22 instead of RX because I was having issues with receiving data which was a problem in my test setup, but I had changed the pin already. RX should work fine.
+
+One-wire temperature:
+
+* Each sensor:
+  * VCC ↔ ESP32 3V3
+  * Data ↔ ESP32 GPIO4
+* 4.7k resistor between VCC and Data (only one)
+
+## ESP32 Software
+
+I use [ESPHome](https://esphome.io/) to configure this, mainly because I have several other ESP32's.
+
+This uses:
+* [UART Bus](https://esphome.io/components/uart.html)
+* [Stream server for ESPHome
+](https://github.com/oxan/esphome-stream-server)
+* [Dallas Temperature Sensor
+](https://esphome.io/components/sensor/dallas.html)
+
+See `esphome.yaml` for the code.
+
+## Genmon
+
+### Install on Alpine linux
+
+### Configuration
+
+## Home Assistant
+

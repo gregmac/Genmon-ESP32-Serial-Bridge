@@ -1,0 +1,88 @@
+substitutions:
+  name: generator-rs232-bridge
+  display_name: Generator RS232 Bridge
+
+esphome:
+  name: $name
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  # disable UART (serial) logging
+  baud_rate: 0
+  
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "$name"
+    password: !secret wifi_hotspot_password
+
+captive_portal:
+
+web_server:
+  port: 80
+  include_internal: true
+
+external_components:
+  - source: github://oxan/esphome-stream-server
+uart:
+  id: uart_bus
+  baud_rate: 9600
+  tx_pin: GPIO1
+  #rx_pin: GPIO3 -- should be fine also
+  rx_pin: GPIO22
+  debug:
+    direction: BOTH
+    after:
+      timeout: 100ms
+    sequence:
+      - lambda: UARTDebug::log_hex(direction, bytes, ' ');
+
+
+stream_server:
+  uart_id: uart_bus
+  port: 6638
+
+status_led:
+  pin: GPIO2
+
+
+dallas:
+  - pin: 4 # GPIO4 (pin 24)
+    update_interval: 30s
+
+sensor:
+  # see https://esphome.io/components/sensor/dallas.html#getting-sensor-ids to find IDs
+  - platform: dallas
+    address: 0x65000006a8115937
+    name: "Generator Ambient Temperature"
+  - platform: dallas
+    address: 0x080000056e145237
+    name: "Generator Engine Temperature"
+    
+
+  - platform: wifi_signal
+    name: "$name WiFi Signal Sensor"
+    update_interval: 60s
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "$name IP Address"
+  - platform: version
+    name: "$name ESPHome Version"
+
+ 
