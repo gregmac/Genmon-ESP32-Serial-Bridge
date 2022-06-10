@@ -9,9 +9,13 @@ Normally Genmon is installed on a Pi that's connected to the generator, but I de
 3. The ESP32 uses much less power (can run from the 5V the generator's AUX port provides)
 4. The ESP32 is significantly smaller and along with all the above, is much easier to mount and connect
 
-I specifically went with the ESP32-WROOM-32U devkit board -- which has an external antenna -- to get a decent signal from the all-metal generator enclosure.
+I specifically went with the ESP32-WROOM-32U devkit board -- which has an external antenna -- to get a decent signal from the (metal) generator enclosure.
 
-> I did initially prototype using a regular ESP32 with a PCB antenna; it had a Wifi signal around -85 dBm and around 25% packet loss. Switching to an external antenna raised the signal to -62 dBm and 0% packet loss.
+## Notes
+
+* I initially built a prototype using a regular ESP32 with a PCB antenna; it had a Wifi signal around -85 dBm and around 25% packet loss. Switching to an external antenna raised the signal to -62 dBm and 0% packet loss.
+* I did all the wiring inline, which was OK before I added the one-wire temperature sensors and ended up swapping the ESP32. If I did it over again I'd do the connections on a small perfboard with sockets to plug in the ESP32.
+* I used some outdoor-rated Cat6 ethernet for the cable between the ESP32 and generator: doubling the brown+white/brown pairs for ground, orange+white/orange pairs for +5V, and blue and white/blue for TX and RX, respectively.
 
 ## Hardware
 
@@ -20,6 +24,7 @@ I specifically went with the ESP32-WROOM-32U devkit board -- which has an extern
 * 8-pin ATX EPS (CPU power) extension cable -- only need male end
 * MAX3232 RS232<>TTL converter module
 * Enclosure
+* Wire, heat-shrink tubing
 
 ### Optional
 
@@ -29,8 +34,6 @@ Temperature sensors:
 * 1x 4.7k resistor
 
 ### Wiring
-
-I did all the wiring inline, which was OK before I added the one-wire temperature sensors and ended up changing the ESP32. If I did it over again I'd do the connections on a small perfboard with sockets to plug in the ESP32.
 
 EPS connector:
 
