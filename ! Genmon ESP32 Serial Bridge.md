@@ -9,7 +9,7 @@ Normally Genmon is installed on a Pi that's connected to the generator, but I de
 3. The ESP32 uses much less power (can run from the 5V the generator's AUX port provides)
 4. The ESP32 is significantly smaller and along with all the above, is much easier to mount and connect
 
-I specifically went with the ESP32-WROOM-32U devkit board -- which has an external antenna -- to get a decent signal from the (metal) generator enclosure.
+I specifically went with the ESP32-WROOM-32U devkit board -- which has an external antenna -- to get a decent signal from the (metal) generator enclosure. My generator is about 8' from the house (all lines are buried), 20' from the nearest access point, and the house exterior is brick (which significantly blocks wifi).
 
 ## Notes
 
