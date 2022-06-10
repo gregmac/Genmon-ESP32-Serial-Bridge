@@ -39,8 +39,8 @@ EPS connector:
 
 * Pin 1: +5V ↔ ESP32 VCC in
 * Pin 2: Ground
-* Pin 7: RS232 TX
-* Pin 8: RS232 RX
+* Pin 7: RS232 TX ↔ MAX3232 RS232 Out
+* Pin 8: RS232 RX ↔ MAX3232 RS232 In
 
 MAX3232:
 
