@@ -157,7 +157,7 @@
           - entity: sensor.outside_temperature
           - entity: sensor.generator_ambient_temperature
           - entity: sensor.generator_engine_state
-          - entity: sensor.generator_battery_voltage_raw
+          - entity: sensor.generator_battery_voltage
             name: Generator Battery
           - entity: sensor.generator_rs232_bridge_wifi_signal_sensor
             name: Wifi Signal

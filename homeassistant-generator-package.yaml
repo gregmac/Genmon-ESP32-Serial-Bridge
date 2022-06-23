@@ -28,11 +28,6 @@
 #    within the Home Assistant configuration GUI for customization. 
 #  - MQTT topics need to match what is configured in genmon
 
-homeassistant:
-  customize:
-    sensor.generator_battery_voltage:
-      icon: mdi:car-battery
-      device_class: voltage
 mqtt:
   sensor:
     - unique_id: "fd8f8c07-7d6f-4aea-92b5-16b7d8acc66b"
@@ -52,19 +47,11 @@ mqtt:
     # status related sensors
     - unique_id: "713eb4b9-feec-4425-8c83-84a9f486aae7"
       expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
-      name: Generator Battery Voltage Raw
+      name: Generator Battery Voltage
       icon: mdi:car-battery
       device_class: voltage
       state_topic: 'generator/Status/Engine/Battery Voltage/value'   # if JSON numerics
       unit_of_measurement: "V"
-  
-    - platform: filter
-      unique_id: "209515cd-37c2-45a3-818e-6056f8fcb5e5"
-      name: Generator Battery Voltage
-      entity_id: sensor.generator_generator_battery_voltage_raw
-      filters:
-        - filter: time_throttle
-          window_size: "00:15"
   
     - unique_id: "83fd4b02-1b5b-4f0c-8a90-fc7cd102a190"
       expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
