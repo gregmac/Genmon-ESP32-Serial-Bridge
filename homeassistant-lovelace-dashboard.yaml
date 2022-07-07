@@ -72,28 +72,30 @@
                 max: 270
                 name: Utility Voltage
                 needle: true
-                position: top
-                row_span: '1'
-                row_span_lg: '1'
-                row_span_xl: '1'
-                severity:
-                  green: 220
-                  red: 0
-                  yellow: 260
+                segments:
+                  - from: 0
+                    color: var(--error-color)
+                  - from: 217
+                    color: var(--warning-color)
+                  - from: 228
+                    color: var(--success-color)
+                  - from: 250
+                    color: var(--warning-color)
+                  - from: 260
+                    color: var(--error-color)
               - type: gauge
                 entity: sensor.generator_engine_temperature
                 max: 120
                 min: -20
                 name: Engine Temperature
                 needle: true
-                position: top
-                row_span: '1'
-                row_span_lg: '1'
-                row_span_xl: '1'
-                severity:
-                  green: 0
-                  red: 80
-                  yellow: 60
+                segments:
+                  - from: 0
+                    color: var(--success-color)
+                  - from: 60
+                    color: var(--warning-color)
+                  - from: 80
+                    color: var(--error-color)
           - type: horizontal-stack
             cards:
               - type: gauge
@@ -101,23 +103,22 @@
                 max: 270
                 name: Output Voltage
                 needle: true
-                position: top
-                row_span: '1'
-                row_span_lg: '1'
-                row_span_xl: '1'
-                severity:
-                  green: 220
-                  red: 0
-                  yellow: 250
+                segments:
+                  - from: 0
+                    color: var(--error-color)
+                  - from: 217
+                    color: var(--warning-color)
+                  - from: 228
+                    color: var(--success-color)
+                  - from: 250
+                    color: var(--warning-color)
+                  - from: 260
+                    color: var(--error-color)
               - type: gauge
                 entity: sensor.generator_output_power
                 max: 25000
                 name: Output Power
                 needle: true
-                position: top
-                row_span: '1'
-                row_span_lg: '1'
-                row_span_xl: '1'
                 severity:
                   green: 0
                   red: 20000
@@ -129,28 +130,35 @@
                 max: 70
                 name: Output Frequency
                 needle: true
-                position: top
-                row_span: '1'
-                row_span_lg: '1'
-                row_span_xl: '1'
-                severity:
-                  green: 58
-                  red: 0
-                  yellow: 62
+                segments:
+                  - from: 0
+                    color: var(--error-color)
+                  - from: 57
+                    color: var(--warning-color)
+                  - from: 59
+                    color: var(--success-color)
+                  - from: 61
+                    color: var(--warning-color)
+                  - from: 63
+                    color: var(--error-color)
                 unit: Hz
               - type: gauge
                 entity: sensor.generator_rpm
                 max: 4000
                 min: 2000
                 needle: true
-                position: top
-                row_span: '1'
-                row_span_lg: '1'
-                row_span_xl: '1'
-                severity:
-                  green: 3500
-                  red: 3850
-                  yellow: 3700
+                segments:
+                  - from: 0
+                    color: var(--error-color)
+                  - from: 3450
+                    color: var(--warning-color)
+                  - from: 3550
+                    color: var(--success-color)
+                  - from: 3650
+                    color: var(--warning-color)
+                  - from: 3750
+                    color: var(--error-color)
+
       - type: entities
         entities:
           - entity: sensor.hydro_rate
