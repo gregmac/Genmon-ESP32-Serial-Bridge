@@ -11,7 +11,7 @@ The ESP32 is configured using [ESPHome](https://esphome.io/) and everything is u
 * 8-pin ATX EPS (CPU power) extension cable -- only need male end
 * MAX3232 RS232<>TTL converter module
 * Enclosure
-* Wire, heat-shrink tubing
+* Wire, heat-shrink tubing, adhesive veclro strips
 
 [<img src="./img/genmon-esp32-antenna.jpg" height="260px" alt="Antenna on side of generator" />](img/genmon-esp32-antenna.jpg)
 [<img src="./img/genmon-esp32-assembled.jpg" height="260px" alt="Assembled ESP32" />](img/genmon-esp32-assembled.jpg)
@@ -30,10 +30,12 @@ Normally Genmon is installed on a Raspberry Pi that is wired to the generator, b
 
 1. Though the Pi can apparently work fine below its rated operating temperature of 0°C, the ESP32 is rated for –40°C to +125°C. 
 2. The Pi is supposedly suspectiple to electromagnetic interference from the generator operating; my assumption is the ESP32, being much simpler, is less susceptible 
-3. The ESP32 uses much less power, and unlike the Pi, can is powered entirely by the 5V supplied by the AUX port on the generator
+3. The ESP32 uses much less power, and unlike the Pi, can be powered entirely by the 5V supplied by the AUX port on the generator
 4. The ESP32 is significantly smaller and along with all the above, is much easier to mount and connect
 
 I specifically went with the ESP32-WROOM-32U devkit board -- which has an external antenna that sticks out the side of the generator -- to get a decent signal, as the generator's metal enclosure blocks wifi.
+
+The case is attached with veclro adhesive strips to the inside side panel next to the wifi antenna, since the antenna cable is very short.
 
 ### Notes
 
