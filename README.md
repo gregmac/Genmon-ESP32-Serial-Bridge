@@ -13,7 +13,9 @@ The ESP32 is configured using [ESPHome](https://esphome.io/) and everything is u
 * Enclosure
 * Wire, heat-shrink tubing
 
-![Hardware](img/genmon-esp32-assembled.jpg)
+[<img src="./img/genmon-esp32-antenna.jpg" height="300px" alt="Antenna on side of generator" />](img/genmon-esp32-antenna.jpg)
+[<img src="./img/genmon-esp32-assembled.jpg" height="300px" alt="Assembled ESP32" />](img/genmon-esp32-assembled.jpg)
+[<img src="./img/genmon-esp32-box.jpg" height="300px"  alt="ESP32 close-up" />](img/genmon-esp32-box.jpg)
 
 ### Optional
 
@@ -108,6 +110,6 @@ Addons:
 
 ## Home Assistant
 
-1. Add [**homeassistant/packages/generator.yaml**](homeassistant/packages/generator.yaml) to the [Home Assistant packages folder](https://www.home-assistant.io/docs/configuration/packages/)** and restart Home Assistant
+1. Add [**homeassistant/packages/generator.yaml**](homeassistant/packages/generator.yaml) to the [Home Assistant packages folder](https://www.home-assistant.io/docs/configuration/packages/) and restart Home Assistant
 2. Add the contents of [**homeassistant/lovelace/generator-dashboard.yaml**](homeassistant/packages/generator-dashboard.yaml) to your [Home Assistant Dashboard](https://www.home-assistant.io/dashboards)
 
