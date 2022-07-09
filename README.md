@@ -13,9 +13,9 @@ The ESP32 is configured using [ESPHome](https://esphome.io/) and everything is u
 * Enclosure
 * Wire, heat-shrink tubing
 
-[<img src="./img/genmon-esp32-antenna.jpg" height="300px" alt="Antenna on side of generator" />](img/genmon-esp32-antenna.jpg)
-[<img src="./img/genmon-esp32-assembled.jpg" height="300px" alt="Assembled ESP32" />](img/genmon-esp32-assembled.jpg)
-[<img src="./img/genmon-esp32-box.jpg" height="300px"  alt="ESP32 close-up" />](img/genmon-esp32-box.jpg)
+[<img src="./img/genmon-esp32-antenna.jpg" height="260px" alt="Antenna on side of generator" />](img/genmon-esp32-antenna.jpg)
+[<img src="./img/genmon-esp32-assembled.jpg" height="260px" alt="Assembled ESP32" />](img/genmon-esp32-assembled.jpg)
+[<img src="./img/genmon-esp32-box.jpg" height="260px"  alt="ESP32 close-up" />](img/genmon-esp32-box.jpg)
 
 ### Optional
 
