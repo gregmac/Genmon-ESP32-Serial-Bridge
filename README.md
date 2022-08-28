@@ -45,6 +45,8 @@ The case is attached with veclro adhesive strips to the inside side panel next t
 
 ### Wiring
 
+[<img src="./img/wiring.png" height="260px" alt="Wiring diagram" />](img/wiring.png)
+
 EPS connector:
 
 * Pin 1: +5V ↔ ESP32 VCC in
