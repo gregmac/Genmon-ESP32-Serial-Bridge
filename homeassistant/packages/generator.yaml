@@ -38,7 +38,8 @@ mqtt:
   
     - unique_id: "f565fed6-8a19-49d4-8066-4015c5ca91b1"
       expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
-      state_topic: 'generator/Outage/Utility Voltage/value'   # if JSON numerics
+      state_topic: 'generator/Outage/Utility Voltage'   # if JSON numerics
+      value_template: "{{ value_json.value }}"
       name: Generator Utility Voltage
       #icon: mdi:sine-wave
       device_class: voltage
@@ -50,7 +51,8 @@ mqtt:
       name: Generator Battery Voltage
       icon: mdi:car-battery
       device_class: voltage
-      state_topic: 'generator/Status/Engine/Battery Voltage/value'   # if JSON numerics
+      state_topic: 'generator/Status/Engine/Battery Voltage'   # if JSON numerics
+      value_template: "{{ value_json.value }}"
       unit_of_measurement: "V"
   
     - unique_id: "83fd4b02-1b5b-4f0c-8a90-fc7cd102a190"
@@ -69,21 +71,24 @@ mqtt:
       name: Generator RPM
       icon: mdi:gauge
       unit_of_measurement: "RPM"
-      state_topic: 'generator/Status/Engine/RPM/value'    # if JSON numerics
+      state_topic: 'generator/Status/Engine/RPM'    # if JSON numerics
+      value_template: "{{ value_json.value }}"
       
     - unique_id: "cbdc9c28-5748-4aef-91bc-5b5ec95ed545"
       expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
       name: Generator Frequency
       device_class: frequency
       unit_of_measurement: "HZ"
-      state_topic: 'generator/Status/Engine/Frequency/value'   # if JSON numerics
+      state_topic: 'generator/Status/Engine/Frequency'   # if JSON numerics
+      value_template: "{{ value_json.value }}"
       
     - unique_id: "f5f462db-e16d-4596-9bd3-232b70fa5038"
       expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
       name: Generator Output Voltage
       device_class: voltage
       unit_of_measurement: "VAC"
-      state_topic: 'generator/Status/Engine/Output Voltage/value'   # if JSON numerics
+      state_topic: 'generator/Status/Engine/Output Voltage'   # if JSON numerics
+      value_template: "{{ value_json.value }}"
       
     # current measurement is garbage on 22KW product, apparently
     - unique_id: "10e1def6-35fd-4922-932a-90f25abb7f29"
@@ -92,7 +97,8 @@ mqtt:
       device_class: current
       unit_of_measurement: "A"
       icon: mdi:sine-wave
-      state_topic: 'generator/Status/Engine/Output Current/value'   # if JSON numerics
+      state_topic: 'generator/Status/Engine/Output Current'   # if JSON numerics
+      value_template: "{{ value_json.value }}"
       
     # current measurement is garbage on 22KW product, apparently, so this value may
     # also be suspect on that model
@@ -101,9 +107,9 @@ mqtt:
       name: Generator Output Power
       device_class: power
       unit_of_measurement: "W"
-      state_topic: 'generator/Status/Engine/Output Power (Single Phase)/value'   # if JSON numerics
+      state_topic: 'generator/Status/Engine/Output Power (Single Phase)'   # if JSON numerics
       # this is normalized to watts from kilowatts
-      value_template: '{{ value | float * 1000 | round(0) }}'
+      value_template: '{{ value_json.value | float * 1000 | round(0) }}'
   
     - unique_id: "8cb64471-9123-48f6-b9be-15c01595981e"
       expire_after: 300   # genmon MQTT flushes out MQTT updated every 60 seconds
@@ -144,8 +150,8 @@ mqtt:
       name: Generator Total Run Time
       device_class: duration
       unit_of_measurement: hours
-      state_topic: 'generator/Maintenance/Service/Total Run Hours/value'  # if JSON numerics
-      value_template: '{{ value | default(0) | float }}'
+      state_topic: 'generator/Maintenance/Service/Total Run Hours'  # if JSON numerics
+      value_template: '{{ value_json.value | default(0) | float }}'
   
     - unique_id: "927b24b7-772d-434a-8fa1-4f1c5549c90d"
       expire_after: 300
