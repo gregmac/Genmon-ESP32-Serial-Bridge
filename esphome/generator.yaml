@@ -19,6 +19,7 @@ logger:
 api:
 
 ota:
+  platform: esphome
   password: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 wifi:
@@ -60,18 +61,20 @@ status_led:
   pin: GPIO2
 
 
-dallas:
-  - pin: 4 # GPIO4 (pin 24)
-    update_interval: 30s
+one_wire:
+  - platform: gpio
+    pin: 4 # GPIO4 (pin 24)
 
 sensor:
   # see https://esphome.io/components/sensor/dallas.html#getting-sensor-ids to find IDs
-  - platform: dallas
+  - platform: dallas_temp
     address: 0x65000006a8115937
     name: "Generator Ambient Temperature"
-  - platform: dallas
+    update_interval: 30s
+  - platform: dallas_temp
     address: 0x080000056e145237
     name: "Generator Engine Temperature"
+    update_interval: 30s
     
 
   - platform: wifi_signal
